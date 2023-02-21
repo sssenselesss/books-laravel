@@ -53,5 +53,34 @@ class BookController extends Controller
         return redirect()->route('main');
     }
 
+    public function update(Request $request, Book $book)
+    {
+
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+            'title' => 'required|min:3',
+            'content' => 'required|min:10',
+            'author' => 'required|min:3',
+            'category_id' => 'required',
+            'file' => 'mimes:png,jpeg,jpg',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors())->withInput($request->all());
+        }
+
+        $validated = $validator->validated();
+        if ($request->file('file')) {
+            $request->validate(['file' => 'mimes:png,jpeg,jpg']);
+            $path = $request->file('file')->store('public/assets');
+
+            $validated['image'] = $path;
+        }
+
+        $book->update($validated);
+
+        return redirect()->route('single',$book  );
+
+    }
+
 
 }

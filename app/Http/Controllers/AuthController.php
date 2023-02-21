@@ -21,7 +21,7 @@ class AuthController extends Controller
             return back()->withErrors($validator->errors())->withInput($request->all());
         }
         $user = User::query()->create(
-            ['password' => Hash::make($request['pass'])] + $validator->validated()
+            ['password' => Hash::make($request['password'])] + $validator->validated()
         );
         Auth::login($user);
         return redirect()->route('main');
@@ -49,8 +49,8 @@ class AuthController extends Controller
             return back()->withErrors(['invalid'=>'invalid credentials'])->withInput($request->all());
         }
 
-        return redirect()->route('main');
 
+        return redirect()->route('main');
 
     }
 }

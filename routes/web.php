@@ -17,15 +17,14 @@ Route::get('/',[\App\Http\Controllers\IndexController::class,'main'])->name('mai
 Route::get('/reg',[\App\Http\Controllers\IndexController::class,'reg'])->name('reg');
 Route::get('/auth',[\App\Http\Controllers\IndexController::class,'auth'])->name('auth');
 
+
 Route::get('/single/{book:id}/update',[\App\Http\Controllers\IndexController::class,'update'])->name('book.update');
 
 
 
 Route::get('/single/{id}',[\App\Http\Controllers\BookController::class,'show'])->name('single');
 Route::get('/single/{id}/delete',[\App\Http\Controllers\BookController::class,'destroy'])->name('book.delete');
-Route::post('/single/{id}/update',[\App\Http\Controllers\BookController::class,'update'])->name('book.updatePost');
-
-
+Route::post('/single/{book:id}/update',[\App\Http\Controllers\BookController::class,'update'])->name('book.updatePost');
 
 
 
